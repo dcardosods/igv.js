@@ -163,7 +163,7 @@
     </div>
     <br/>
     <div>
-        <button id="googlePickerButton" disabled onclick="createPicker()">Google Drive</button>
+        <button id="googlePickerButton" disabled>Google Drive</button>
     </div>
     <br/>
     <div>
@@ -179,10 +179,6 @@
     $(document).ready(function () {
 
         gapi.load('client:auth2', initClient);
-
-        gapi.load('picker', function () {
-            document.getElementById("googlePickerButton").disabled = false;
-        });
 
     });
 

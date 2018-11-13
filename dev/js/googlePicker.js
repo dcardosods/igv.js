@@ -2,7 +2,6 @@
  * Created by jrobinso on 6/2/18.
  */
 
-
 function initClient() {
 
     var scope = "https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/genomics https://www.googleapis.com/auth/devstorage.read_only https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/drive.readonly";
@@ -16,25 +15,43 @@ function initClient() {
                 'scope': scope
             });
         })
-        
+
         .then(function (ignore) {
             gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
         })
 
         .then(function () {
 
-            var div, options, browser;
+            gapi.load('picker', function () {
+                document.getElementById("googlePickerButton").disabled = false;
+            });
 
-            div = $("#myDiv")[0];
-            options = {
-                genome: "hg19",
-                apiKey: igv.google.properties["api_key"],
-                queryParametersSupported: true
-            };
+            let options =
+                {
+                    genome: "hg19",
+                    apiKey: igv.google.properties["api_key"],
+                    queryParametersSupported: true
+                };
 
-            igv.createBrowser(div, options);
+            igv.createBrowser($('#myDiv').get(0), options)
+                .then((browser) => {
 
-            
+                    browser.googleDriveAlert = new igv.AlertDialog($('#myDiv'), browser);
+
+                    $('#googlePickerButton').on('click', (e) => {
+
+                        browser.googleDriveAlert.presentMessageWithCallback('Sign in to Google', (string) => {
+
+                            console.log(string);
+
+                            createPicker();
+                        });
+
+                    });
+
+                })
+
+
         })
 
     //
