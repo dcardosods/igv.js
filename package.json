@@ -4,12 +4,12 @@
   "description": "Embeddable genomic visualization component based on the Integrative Genomics Viewer",
   "main": "dist/igv.esm.js",
   "files": [
-    "dist/**"
+    "dist/**",
+    "dnastack_dist/**"
   ],
   "scripts": {
     "test": "grunt test",
     "grunt": "node node_modules/grunt/bin/grunt",
-    "prepack": "node_modules/grunt/bin/grunt",
     "http-server": "node_modules/http-server/bin/http-server ."
   },
   "author": {
